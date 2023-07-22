@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, date, datetime
 
 delta = timedelta(days=7, hours=20, minutes=7, seconds=17)
 print(delta)
@@ -24,4 +24,22 @@ delta6 = timedelta(days=7, seconds=125, minutes=10, hours=8, weeks=2)
 
 hours, minutes = hours_minutes(delta)
 print(delta6.total_seconds())
+
+
+my_life = date(1991, 11, 6)
+today = date.today()
+print(my_life - today)
+
+
+dt = datetime(2021, 11, 4, 13, 6) + timedelta(weeks=1, hours=12)
+
+print(dt.strftime('%d.%m.%Y %H:%M:%S'))
+
+
+today = date(2021, 11, 4)
+birthday = date(2022, 10, 6)
+
+days = today - birthday
+
+print(abs(days.days)) 
 
