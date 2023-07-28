@@ -43,3 +43,13 @@ days = today - birthday
 
 print(abs(days.days)) 
 
+
+def num_of_sundays(year):
+    res = 0
+    from datetime import datetime, timedelta
+    start = datetime(int(year), 1, 1)
+    while start.year == int(year):
+        start += timedelta(days=1)
+        if datetime.weekday(start) == 0:
+            res += 1
+    return res
