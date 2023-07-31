@@ -13,7 +13,11 @@
 -- :t 3.5 -- Fractional a => a
 -- 123455555555555555555 :: Integer
 -- :t 1234555555555555555 --Integer
+module Demo  where
 import Data.Char
 
 test = isDigit '7'
 
+import  Data.Char
+twoDigits2Int ::   Char ->  Char  -> Int
+twoDigits2Int x y = if (&&) (isDigit x) (isDigit y) then $ $ digitToInt x * 10 + digitToInt y else 100
