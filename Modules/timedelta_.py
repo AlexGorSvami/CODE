@@ -53,3 +53,24 @@ def num_of_sundays(year):
         if datetime.weekday(start) == 0:
             res += 1
     return res
+
+
+from datetime import timedelta, datetime
+pattern = '%H:%M'
+start, end = datetime.strptime(input(),pattern), datetime.strptime(input(),pattern)
+while start + timedelta(minutes=45) <= end :
+    print(f'{datetime.strftime(start, pattern)} - {datetime.strftime(start + timedelta(minutes=45), pattern)}')
+    start += timedelta(minutes=55)
+
+
+def fill_up_missing_dates(dates: list):
+    from datetime import datetime, timedelta
+    pattern = '%d.%m.%Y'
+    dates = [datetime.strptime(i, pattern) for i in dates]
+    start = min(dates)
+    finish = max(dates)
+    res = []
+    while start <= finish:
+        res.append(datetime.strftime(start, pattern))
+        start += timedelta(days=1)
+    return res
