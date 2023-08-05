@@ -26,3 +26,8 @@ factorial1 :: Integer -> Integer
 factorial1 n | n == 0 = 1
              | n > 0  = n * factorial1 (n - 1)
              | otherwise = error "arg must be >= 0"
+
+---Fibonachi
+fibonachi 0 = 0
+fibonachi 1 = 1
+fibonachi n = fibonachi (n - 1) + fibonachi (n - 2)

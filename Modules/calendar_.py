@@ -25,7 +25,14 @@ def get_days_in_month(year, month):
     res = []
     for i in range(1,calendar.monthrange(date.year, date.month)[-1]+1):
         dt = str(year) + " " + month + " " + str(i)
-        res.append(datetime.strptime(dt, '%Y %B %d'))
+        dt = datetime.strptime(dt, '%Y %B %d')
+        res.append(dt.date())
     return sorted(res)
+
+# -------------------------------------------------
+def get_days_in_month1(year, month):
+    from datetime import datetime, date
+    month = list(calendar.month_name).index(month)
+    return [date(year, month, day) for day in range(1, calendar.monthrange(year, month)[1]+1)]
 
 print(get_days_in_month(2021, 'December'))
