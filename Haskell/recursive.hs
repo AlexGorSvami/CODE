@@ -28,6 +28,6 @@ factorial1 n | n == 0 = 1
              | otherwise = error "arg must be >= 0"
 
 ---Fibonachi
-fibonachi 0 = 0
-fibonachi 1 = 1
-fibonachi n = fibonachi (n - 1) + fibonachi (n - 2)
+neg_fibonachi n | n > 1 = neg_fibonachi(n - 1) + neg_fibonachi(n - 2)
+                | n < 0 = neg_fibonachi (n + 2) + neg_fibonachi( n + 1)
+                | otherwise = n
