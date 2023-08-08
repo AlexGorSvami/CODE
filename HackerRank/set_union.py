@@ -1,0 +1,5 @@
+n = int(input())
+set1 = set([int(i) for i in input().split()])
+n1 = int(input())
+set2 = set([int(i) for i in input().split()])
+print(len(set1 | set2))
