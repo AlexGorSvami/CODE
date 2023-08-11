@@ -38,3 +38,9 @@ fibonacci' 1 = 1
 fibonacci' (-1) = 1
 fibonacci' (-2) = (-1)
 fibonacci' n = if n >= 0 then fibonacci' (n - 1) + fibonacci' (n - 2) else fibonacci' (n + 2) - fibonacci' (n + 1)
+
+factorial5 n | n >= 0 = helper 1 n
+             | otherwise = error "arg must be >= 0"
+
+helper acc 0 = acc
+helper acc n = helper (acc * n) (n - 1)
