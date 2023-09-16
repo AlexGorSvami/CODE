@@ -44,3 +44,18 @@ soup = BeautifulSoup(response.text, 'lxml')
 res = [float(i.text) for i in soup.find_all('td', class_='orange')]
 blue = [float(i.text) for i in soup.select('td:last-child')]
 print(sum(map(lambda x: x[0]*x[1], zip(res, blue))))
+
+print('------------------------6---------------------')
+url = 'https://parsinger.ru/table/5/index.html'
+response = requests.get(url)
+response.encoding = 'utf-8'
+soup = BeautifulSoup(response.text, 'lxml')
+keys = [i.text for i in soup.find_all('th')]
+values = [round(sum(float(tag.text) for tag in soup.select(f'table tr td:nth-of-type({i})')),3) for i in range(1, len(keys)+1)]
+res = dict(zip(keys, values))
+print(res)
+# values = [round(sum(values[i:i+15]),3) for i in range(0, len(values),15)]
+# print(len(values))
+# res = dict(zip(keys, values))
+# print(res)
+
