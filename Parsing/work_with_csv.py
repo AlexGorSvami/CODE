@@ -51,30 +51,38 @@ print('----------------------------sample----------------------------')
 #         site, in_stock, price])
 # # 4 ------------------------------------------------------
 
-import csv 
-import requests 
+import csv
+import requests
 from bs4 import BeautifulSoup
 
-with open ('res.csv', 'w', encoding='utf-8-sig', newline='') as f:
-    writer = csv.writer(f, delimiter=';')
+# 1 ------------------------------------------------------
+with open('res.csv', 'w', encoding='utf-8-sig', newline='') as file:
+    writer = csv.writer(file, delimiter=';')
     writer.writerow([
-                'Наименование', 'Цена', 'Бренд', 'Тип', 'Подключение', 'Игровая'])
+        'Наименование', 'Цена', 'Бренд', 'Тип', 'Подключение', 'Игровая'])
+# 1 ------------------------------------------------------
 
+# 2 ------------------------------------------------------
 url = 'http://parsinger.ru/html/index3_page_2.html'
 
 response = requests.get(url=url)
 response.encoding = 'utf-8'
 soup = BeautifulSoup(response.text, 'lxml')
+# 2 ------------------------------------------------------
 
+# 3 ------------------------------------------------------
 name = [x.text.strip() for x in soup.find_all('a', class_='name_item')]
 description = [x.text.split('\n') for x in soup.find_all('div', class_='description')]
 price = [x.text for x in soup.find_all('p', class_='price')]
+# 3 ------------------------------------------------------
 
-for item, price, desc in zip(name, price, description):
-    flatten = item, price, *[x.split(':')[1].strip() for x in desc if x]
+# 4------------------------------------------------------
 
-    f = open('res.csv', 'a', encoding='utf-8-sig', newline='')
-    writer = csv.writer(f, delimiter=';')
+for item, price, descr in zip(name, price, description):
+    flatten = item, price, *[x.split(':')[1].strip() for x in descr if x]
+
+    file = open('res.csv', 'a', encoding='utf-8-sig', newline='')
+    writer = csv.writer(file, delimiter=';')
     writer.writerow(flatten)
-f.close()
-print('Успешно сохранено!')
+file.close()
+print('Файл res.csv создан')
