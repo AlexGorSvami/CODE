@@ -268,13 +268,13 @@ for i in range(1,5):
         description = [i.split(':')[1].strip() for i in description if ':' in i]
         print(description)
         link = [link['href'] for link in soup.find_all('a', id='a_back')]
-    #     for descr, lin  in  zip(description, link):
-    #         flatten  = [*[list(str(x).split(':')) for x in descr if len(x)>0], lin]
-    #         flatten.remove(flatten[-2])
-    #         flatten = to_flatten(flatten)
-    #         print(flatten)
-    # #         file = open('res3.csv', 'a', encoding='utf-8-sig', newline='')
-    #         writer = csv.writer(file, delimiter=';')
-    #         writer.writerow(flatten)
-    # file.close()
+        for descr, lin  in  zip(description, link):
+            flatten  = [*[list(str(x).split(':')) for x in descr if len(x)>0], lin]
+            flatten.remove(flatten[-2])
+            flatten = to_flatten(flatten)
+            print(flatten)
+        #     file = open('res3.csv', 'a', encoding='utf-8-sig', newline='')
+        #     writer = csv.writer(file, delimiter=';')
+        #     writer.writerow(flatten)
+        # file.close()
 
