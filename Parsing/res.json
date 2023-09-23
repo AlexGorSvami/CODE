@@ -1,0 +1,66 @@
+[
+    {
+        "name": "Vampire RGB,9 кнопок",
+        "brand": " Defender ",
+        "type": "  Мышь проводная ",
+        "connect": " USB",
+        "game": " да",
+        "price": "1610 руб"
+    },
+    {
+        "name": "Defender Halo Z GM-430L",
+        "brand": " Defender ",
+        "type": " Мышь проводная ",
+        "connect": " USB",
+        "game": " да",
+        "price": "550 руб"
+    },
+    {
+        "name": "Defender Shark 2",
+        "brand": " Defender ",
+        "type": "  Мышь беспроводная ",
+        "connect": " USB",
+        "game": " да",
+        "price": "1480 руб"
+    },
+    {
+        "name": "Defender sTarx GM-390L",
+        "brand": " Defender ",
+        "type": "  Мышь проводная ",
+        "connect": " USB",
+        "game": " да",
+        "price": "730 руб"
+    },
+    {
+        "name": "Defender Skull GM-180L",
+        "brand": " Defender ",
+        "type": "  Мышь проводная ",
+        "connect": " USB",
+        "game": " да",
+        "price": "485 руб"
+    },
+    {
+        "name": "Defender Killer GM-170L",
+        "brand": " Defender ",
+        "type": "  Мышь проводная ",
+        "connect": " USB",
+        "game": " да",
+        "price": "550 руб"
+    },
+    {
+        "name": "Defender Ghost GM-190L",
+        "brand": " Defender ",
+        "type": "  Мышь проводная ",
+        "connect": " USB",
+        "game": " да",
+        "price": "600 руб"
+    },
+    {
+        "name": "Defender Witcher GM-990",
+        "brand": " Defender ",
+        "type": "  Мышь проводная ",
+        "connect": " USB",
+        "game": " да",
+        "price": "730 руб"
+    }
+]
