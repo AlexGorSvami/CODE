@@ -30,7 +30,6 @@ res = []
 with webdriver.Chrome() as browser:
     browser.get('http://parsinger.ru/infiniti_scroll_1/')
     for tag in browser.find_elements(By.TAG_NAME, 'input'):
-        tag.send_keys(Keys.DOWN)
-        tag.click()
+        
         
     
