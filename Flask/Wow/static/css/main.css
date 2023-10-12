@@ -1,5 +1,16 @@
-body {
-    background-color: aquamarine;
+/* HEADER */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+}
+.header__img {
+    height: 50px;
+    width: 50px;
+}
+body{
     text-align: center;
-
 }
