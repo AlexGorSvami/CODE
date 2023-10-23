@@ -1,66 +1,54 @@
 import sys
 import pygame
 
+screen = pygame.display.set_mode((800,600))
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load('Pygame/resources/shortbeep.mp3')
+pygame.mixer.music.load('/home/alex/CODE/Pygame/resources/shortbeep.mp3')
 
-# Create the screen
-screen = pygame.display.set_mode((800, 600))
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
-
 HelloWorldColors = [BLACK, RED]
-
-# Шрифт
-font = pygame.font.Font(None, 32)
+font = pygame.font.Font(None,32)
+gamewindow = pygame.display.set_mode((800,600))
 
 count = 0
-while  True:
-    count += 1
-    screen.fill(WHITE)
+while True:
+    count = count + 1
+    screen.fill(WHITE) # заполяем фон
 
-    # Проверка событий выхода
-    if event.type == pygame.QUIT:
-        sys.exit()
-
+    # Проверка событий выхода
     for event in pygame.event.get():
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
+        if event.type == pygame.QUIT:
+            sys.exit()
 
-    if mouse_pos != None:
-        screen.blit(pygame.image.load(
-            'Pygame/resources/smiley.png'),
-            (mouse_pos[0] - 16, mouse_pos[1] - 16))
-    else:
-        screen.blit(pygame.image.load(
-            'Pygame/resources/smiley.png'),
-            (screen.get_width() / 2 - 16,
-            (screen.get_height() - text.get_height()) / 2 - 60))
-
-    # Создание текстовой поверхности и чередование цветов
+    # Создаю текстовую поверхность
     text = font.render('Hello world!', True, HelloWorldColors[count % 2])
-    pygame.time.wait(1000)
 
-    # Создание черной прямоугольной рамки
-    pygame.draw.rect(screen, BLACK,
-                ((screen.get_width() - text.get_width()) / 2 - 10,
-                (screen.get_height() - text.get_height()) / 2 - 10,
-                text.get_width() + 20, text.get_height() + 20),1)
+    pygame.time.delay(1000)
 
+    # Создаю объёмный текст с чёрной прямоугольной рамкой
+    pygame.draw.rect(screen, BLACK, 
+    ((screen.get_width() - text.get_width()) / 2 - 10,
+    (screen.get_height() - text.get_height()) / 2 - 10,
+    text.get_width + 20,
+    text.get_height + 20), 1)
 
-                 # Ожидание в 1 сек
-    pygame.time.wait(1000)
+    # Рисую смайлик над рамкой 32х32
 
-    screen.blit(pygame.image.load('Pygame/resources/smiley.png'),
-                (screen.get_width()/2-16,
-                (screen.get_height() - text.get_height()) / 2 - 60))
+    screen.blit(pygame.image.load('/home/alex/CODE/Pygame/resources/smiley.png'),
+    ((screen.get_width()/2 -16,
+      (screen.get_height() - text.get_height()) / 2 - 60)))
 
-    screen.blit(text, ((screen.get_width() - text.get_width()) / 2, (screen.get_height() - text.get_height()) / 2))            
+    # Перенос текстовой поверхности на экран
+    screen.blit(text, ((screen.get_width() - text.get_width()) / 2,
+     (screen.get_height() - text.get_height()) / 2))
 
+     # подавать звуковой сигнал
     pygame.mixer_music.play()
 
+    # Обновление экрана
     pygame.display.flip()
 
 
