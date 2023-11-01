@@ -4,5 +4,5 @@ from player import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('player/', include('player.urls')),
+    path('', include('player.urls')),
 ]
