@@ -9,5 +9,6 @@ urlpatterns = [
     path('cats/<int:cat_id>/', views.categories),
     path('cats/<slug:cat_slug>/', views.categories_by_slug),
     path("archive/<year4:year>/", views.archive),
+    path('about/', views.about)
     # re_path(r"^archive/(?P<year>[0-9]{4})/",  views.archive),
 ]

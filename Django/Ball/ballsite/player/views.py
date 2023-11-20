@@ -1,8 +1,14 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render
+from django.template.loader import render_to_string
 
 def index(request):
-    return HttpResponse("Страница игроков!")
+    # t = render_to_string('player/index.html')
+    # return HttpResponse(t)
+    return render(request, 'player/index.html')
+
+def about(request):
+    return render(request, 'player/about.html')
 
 def categories(request, cat_id):
     return HttpResponse(f"<h1>Статьи по категориям</h1><p>id: {cat_id}</p>")
