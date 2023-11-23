@@ -1,14 +1,19 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.template.defaultfilters import slugify
+
 
 menu = ['О сайте', 'Добавить статью', 'Обратная связь', 'Войти']
 
 def index(request):
     # t = render_to_string('player/index.html')
     # return HttpResponse(t)
-    data = {'title': 'Главная страница!!!',
+    data = {'title': 'главная страница aaa!!!',
             'menu': menu,
+            'float': 12.34,
+            'f': 23,
+            'url': slugify('Hello slugify'),
             }
     return render(request, 'player/index.html', context=data)
 

@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }}</title>
+    <title>{{ title|capfirst }}</title>
 </head>
 <body>
-<h1>{{ title }}</h1>
-<p>{{ menu }} </p>
+<h1>{{ title|capfirst|cut:' '|cut:'!'|cut:'a' }}</h1>
+<p>{{ menu|join:" | " }} </p>
+<p>{{ menu|length }}</p>
+<p>{{ float|add:"20" }}</p>
+<p>{{ f|divisibleby:'2' }}</p>
+<p>{{ 'The Main Page'|slugify }}</p>
+<p>{{ main_title|default:'Nothing' }}</p>
+<p>{{ url }}</p>
 </body>
 </html>
