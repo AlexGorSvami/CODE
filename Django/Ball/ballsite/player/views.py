@@ -6,14 +6,15 @@ from django.template.defaultfilters import slugify
 
 menu = ['О сайте', 'Добавить статью', 'Обратная связь', 'Войти']
 
+data_db = [
+    { 'id': 1, 'title': 'Liverpool', 'content': 'About the Liverpool team', 'is_publish': True },
+    { 'id': 2, 'title': 'Roma', 'content': 'About the Roma team', 'is publish': False },
+    { 'id': 3, 'title': 'Newcastle', 'content': 'About the Newcastle', 'is_published': True},
+    ]
 def index(request):
-    # t = render_to_string('player/index.html')
-    # return HttpResponse(t)
-    data = {'title': 'главная страница aaa!!!',
+    data = {'title': 'Football teams',
             'menu': menu,
-            'float': 12.34,
-            'f': 23,
-            'url': slugify('Hello slugify'),
+            'posts': data_db,
             }
     return render(request, 'player/index.html', context=data)
 
