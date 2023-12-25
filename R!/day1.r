@@ -31,4 +31,5 @@ v1[v1 > mean_v1]
 greter_than_mean <- v1[v1 > mean_v1]
 
 
+v1 <- 1:20
 
