@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main(){
+    int a = 777;
+    printf("|%d|\n", a);
+    printf("|%-8d|\n", a);
+    printf("|%8d|\n", a);
+    printf("|%2d|\n", a);
+    
+    float b = 150.5;
+    printf("|%f|\n", b);
+    printf("|%-8.3f|\n", b);
+    printf("|%8.2f|\n", b);
+    printf("|%4.3f|\n", b);
+    printf("S.Holmes:\n51grad 31\'25.48\" N\n0 grad  9\'29.93\" W\n");
+    printf("||-----|-----|-----|-----||\n|| act | one | two | res ||\n||=====+=====+=====+=====||\n|| +|3 |4 |00007||\n|| -| 3| 4|-0001||\n|| *| 3|4 |00012||\n||\/ |3 | 4|0.750||\n===========================\n");
+    return 0;
+}
