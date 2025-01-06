@@ -1,0 +1,6 @@
+# Комманда просмотра ssh ключа
+ssh-agent sh -c 'ssh-add; ssh-add -L'
+
+
+Запустите следующую команду для подключения к базе данных RDS: psql --no-readline -U <user> -h <host> -p <port> -d <datastore> -W. 
+Параметры: -U — имя пользователя экземпляра базы данных RDS. По умолчанию — root .

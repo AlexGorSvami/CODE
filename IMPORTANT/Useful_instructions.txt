@@ -1,0 +1,35 @@
+-----------------------------------1 Слияние несвязанных веток git ------------
+Если ветки не имеют общих коммитов, то нужно использовать git merge--allow-unrelated-histories
+
+Если хочется перед выполнением коммита проверить результат слияния, то нужно использовать git merge--no-commit, внести правки, и затем git commit.
+
+А можно выполнить git merge, затем внести правки и добавить их к коммиту слияния при помощи git commit--amend
+
+----------------------------PSQL----------------------------------------
+1. подключаемся к базе из консоли:
+$ psql - localhost -U postgres
+
+2. Создаем правило для новой версии:
+postgres=#CREATE COLLATION russian (provider = libc, locale = 'ru_RU.utf8');
+//Локаль та, что в системе : locale -a
+
+3. Обновляем всю базу:
+postgres=#ALTER DATABASE postgres REFRESH COLLATION VERSION;
+
+4. Обновляем базу msf:
+postgres=#ALTER DATABASE msf REFRESH COLLATION VERSION;
+
+5. Выходим:
+postgres=#\q
+
+6. Делаем рестарт postgresql
+$ sudo service postgresql restart
+
+7. Запускаем msfconsole и видим, что все в порядке.
+
+PS: Повнимательнее к точкам с запятой в конце команд. Полтора дня убил из-за них :)
+
+------------------------------------------------------REDIS----------------------------------
+pamac install redis
+sudo systemctl enable --now redis
+sudo systemctl status redis

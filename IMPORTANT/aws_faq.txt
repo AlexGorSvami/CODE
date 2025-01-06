@@ -1,0 +1,57 @@
+EC2 instances - виртуальные серверы
+VPC - виртуальные сети
+S3Bucket - Unlimited Web space(неограниченное веб пространство)
+S3Web Hosting - Web Sites Hosting(хочтинг веб сайтов)
+Route53 - Domain registration, DNS
+RDS, DynamoDB  - SQL and NoSQL Databases(базы данных)
+CloudFormation - Infrastructure   as Code(инфроструктура кода)
+Elastic Beanstalk - Automation(автоматизация)
+Devops
+......
+
+
+------3 главных игрока на рынке мировых облачных сервисов ------
+-amazon web services
+-microsoft azure
+-google cloud platform
+
+--------------Сертификаты amazon с чего начать --------------
+solutions-architect -> Developer -> SysOps Administrator -> Devops Engineer -> Solution Architect Professionall
+Доп: BigData, Advanced Networking
+
+------------Термины---------------------
+Availability  Zone - Изолированный дата центр
+us-west1 (us-west-1) California
+us-east-2 Ohio
+us-west-2 Oregon
+ap-south1 - Mumbai
+ap-northeast-2 Seol
+ap-southeast-1 Singapore
+ap-southeast-1 Tokyo
+ca-central-1(Canada(Central))
+eu-central-1 Frankfurt
+eu-west-1 Ireland
+eu-west-2 London
+sa-east-1 Sao Paulo
+
+-----------------Основные сервисы amazon --------------
+Amazon  EC2 - виртуальне сервера(instance похоже на расский сервер)
+Elastic Load Balancing - эластичная загрузка баланса, помашает распределить нагрузку на серверы
+AWS Elastic Beanstalk позволяет создать сайт по скрипту автоматически загружая всё
+Amazon CloudFront - сервера для хранения кэша
+AmazonCloudWatch - мониторинг всей  инфраструктуры сервера
+AMAZON S3 simple storage service -  простое хранишище файлов
+AMAZON Glacer - архивирование данных - сервис  для  храниения огромных архивированных фалов (очень дешевый)
+AMAZON   EFS  -  хард диск который можно подключить к нескольким серверам
+AWS CloudFormation - инфраструктуа в коде
+AWS OpsWorks - загружает рескпи шефа
+AMAZON RDS - relationship data system БД
+AMAZON DynamoDB - версия nosql  от амазон
+Amazon   Redshift - быстрая система анализа  больших  данных
+Amazon  EMR - сервис для  работы  с big data
+Amazon IAM - identify  access managment здесь   производиться вся работа с   пользователями и правами
+Amazon VPC -  virtual private cloud виртуальная сеть   предлагающая доступ  к скрвису amazon  
+Amazon   Route 53 - dns сервер амазона(домены) работает через порт 53
+AMAZON SES - simple email services это сервис с оплатой по мере использования для работы с почтой
+AMAZON SNS - управляемый сервс для отправки соощений для установления связей
+AMAZON SQS - simple queue services сервис для разделения и связывания компонентов с помощью очередей

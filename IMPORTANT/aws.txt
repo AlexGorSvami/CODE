@@ -1,0 +1,22 @@
+----------------Подключение к серверу  ------------------
+ssh -i ~/.ssh/My_ssh.pem ubuntu@ec2-18-198-187-74.eu-central-1.compute.amazonaws.com
+----------------Смена  прав   -------------------
+chmod 700 ~/.ssh/My_ssh.pem
+-----------------Проверка подключенных пользователей ----------
+w
+-----------------Настройка конфига сервера ----------------
+Host *
+IdentityFile ~/.ssh/My_ssh.pem
+-----------------faq по настройке  сервера ------------
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-22-04
+---------------------Настройка PSQL на сервере -------------
+sudo  -u postgres psql;
+CREATE   DATABASE  db_name;
+CREATE  ROLE  name  with password  'password';
+ALTER   ROLE "name" WITH LOGIN;
+GRANT  ALL PRIVELEGES ON DATABASE "db_name" to name;
+ALTER USER name CREATEDB;
+
+--------------------Создание виртуального окружения --------
+python3 - m venv venv
+source venv/bin/activate - активация виртуального окружения;

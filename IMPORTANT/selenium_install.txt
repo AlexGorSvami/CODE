@@ -1,0 +1,26 @@
+pip install selenium webdriver-manager
+
+и все работает сразу, никаких webdriver'ов скачивать не нужно.
+
+Почитать можно тут:
+https://pypi.org/project/webdriver-manager/
+
+Запускается так:
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromiumService
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.utils import ChromeType
+import time
+
+options_chrome = webdriver.ChromeOptions()
+options_chrome.add_extension('coordinates.crx')
+driver = webdriver.Chrome(service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()), options=options_chrome)
+
+url = "https://vk.com"
+driver.maximize_window()
+driver.get(url)
+time.sleep(5)
+driver.quit()
+
+Никаких путей прописывать не нужно, все автоматизировано. Если нужно подключить расширение - просто помещаем его рядом со скриптом. Ещё удобно, что нет проблем с обновлением webdriver - Webdriver-manager всегда подтягивает последнюю версию. Но если есть необходимость - версию можно указать явно.
