@@ -6,8 +6,8 @@ def maxAscendingSum(nums: list) -> int:
             current_sum += nums[i]
         else:
             current_sum = nums[i]
-
-    return max(max_sum, current_sum)
+        max_sum = max(max_sum, current_sum )
+    return max_sum
 
 
 print(maxAscendingSum([10,20,30,5,10,50]))
