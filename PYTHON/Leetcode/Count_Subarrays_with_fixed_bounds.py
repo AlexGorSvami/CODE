@@ -1,33 +1,21 @@
 def countSubarrays(nums: list, minK: int, maxK: int) -> int:
-    count = 0
-    n = len(nums)
-    right = 0
-    left = 0
-    min_value = float('inf')
-    max_value = float('-inf')
+    p_min = p_max = bad = -1
+    answer = 0
 
-    while right < n:
-        min_value = min(min_value, nums[right])
-        max_value = max(max_value, nums[right])
+    for i, num in enumerate(nums):
+        if num == minK:
+            p_min = i 
 
-        if min_value == minK and max_value == maxK:
-            if min_value == max_value or min_value == nums[right] or max_value == nums[right]:
-                count += right - left+1
-            else:
-                count += 1 
+        if num == maxK:
+            p_max = i 
 
-        elif max_value > maxK:
-            while left <= right:
-                left += 1 
-                max_value = float('-inf')
-                min_value = float('inf')
-        elif min_value < minK:
-            while left <= right:
-                left += 1 
-                min_value = float('inf')
-                max_value = float('-inf')
-        right += 1 
-    return count 
+        if num < minK or num > maxK:
+            bad = i 
+
+        if p_min != -1 and p_max != -1:
+            answer += max(0, min(p_min, p_max) - bad) 
+
+    return answer 
 
 
 print(countSubarrays([1,3,5,2,7,5], 1, 5))
