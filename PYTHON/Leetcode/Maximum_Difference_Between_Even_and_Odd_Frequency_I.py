@@ -3,7 +3,7 @@ def maxDifference(s: str) -> int:
 
     freq = Counter(s)
     max_odd = float('-inf')
-    min_even = float('-inf')
+    min_even = float('inf')
 
     for cnt in freq.values():
         if cnt % 2 == 1:
