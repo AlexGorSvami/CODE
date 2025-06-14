@@ -6,5 +6,5 @@ def minMaxDifference(num: int) -> int:
             break
     else:
         smax = s 
-    smin - s.replace(s[0], '0')
+    smin = s.replace(s[0], '0')
     return int(smax) - int(smin)
