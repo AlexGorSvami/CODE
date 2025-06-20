@@ -9,8 +9,8 @@ def maxDistance(s: str, k: int) -> int:
             south += 1 
         elif c == 'E':
             east += 1 
-        elif c == 'W'"
-        west += 1 
+        elif c == 'W':
+            west += 1 
 
         x = abs(north - south)
         y = abs(east - west)
