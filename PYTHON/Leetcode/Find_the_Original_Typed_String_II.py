@@ -30,7 +30,7 @@ def possibleStringCount(word: str, k: int) -> int:
         query = lambda l, r: (psa[r+1] - psa[l] % MOD)
 
         for cur_s in range(target):
-            dp[index][cur_s] = dp([index][cur_s] + query(max(0, cur_s - group[index]), cur_s)) % MOD 
+            dp[index][cur_s] = (dp[index][cur_s] + query(max(0, cur_s - group[index]), cur_s)) % MOD 
     less_k = sum(dp[-1])
     return (total - less_k) % MOD 
 
