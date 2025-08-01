@@ -7,5 +7,5 @@ def generate(numRows: int) -> list:
                 x = 1 
             else:
                 x = l[i-1][j-1] + l[i-1][j]
-                l[i].append(x)
+            l[i].append(x)
     return l
