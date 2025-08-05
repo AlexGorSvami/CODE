@@ -11,4 +11,4 @@ def numOfUnplacedFruits(fruits: list, baskets: list) -> int:
                 break 
         if not placed:
             unplaced += 1 
-        return unplaced 
+    return unplaced 
