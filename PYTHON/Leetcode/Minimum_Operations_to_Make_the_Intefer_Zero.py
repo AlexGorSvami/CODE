@@ -5,4 +5,4 @@ def makeTheIntegerZero(num1: int, num2: int) -> int:
             return -1
         if bin(x).count('1') <= i:
             return i 
-        return -1
+    return -1
