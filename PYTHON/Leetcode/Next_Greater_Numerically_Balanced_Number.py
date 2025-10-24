@@ -9,6 +9,6 @@ def nextBeautifulNumber(n: int) -> int:
             if int(num) != count:
                 flag = True 
                 break 
-            if not flag:
-                beautiful = False 
+        if not flag:
+            beautiful = False 
     return n 
