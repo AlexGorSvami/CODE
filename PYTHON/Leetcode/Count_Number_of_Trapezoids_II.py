@@ -1,24 +1,31 @@
 def countTrapezoids(points: list) -> int:
-        slopes = defaultdict(int)
-        lines = defaultdict(int)
-        mids = defaultdict(int)
-        midlines = defaultdict(int)
+        groups = defaultdict(list) 
+        groups2 = defaultdict(list) 
 
-        for (x1, y1), (x2, y2) in combinations(A, 2):
-            dx, dy = x2 - x1, y2 - y1
-            g = gcd(dx, dy)
-            dx, dy = dx // g, dy // g
-            if dx < 0 or (dx == 0 and dy < 0):
-                dx, dy = -dx, -dy
+        for i, (x, y) in enumerate(points):
+            for x2, y2 in points[:i]:
+                dy = y - y2
+                dx = x - x2
+                k = dy / dx if dx else math.inf
+                b = (y * dx - x * dy) / dx if dx else x
+                groups[k].append(b)
+                groups2[(x + x2, y + y2)].append(k)
 
-            inter = dx * y1 - dy * x1
-            slopes[dx, dy] += 1
-            lines[dx, dy, inter] += 1
-            mids[x1 + x2, y1 + y2] += 1
-            midlines[x1 + x2, y1 + y2, dx, dy, inter] += 1
+        ans = 0
+        for g in groups.values():
+            if len(g) == 1:
+                continue
+            s = 0
+            for c in Counter(g).values():
+                ans += s * c
+                s += c
 
-        ans = sum(comb(v, 2) for v in slopes.values())
-        ans -= sum(comb(v, 2) for v in lines.values())
-        ans -= sum(comb(v, 2) for v in mids.values())
-        ans += sum(comb(v, 2) for v in midlines.values())
-        return ans
+        for g in groups2.values():
+            if len(g) == 1:
+                continue
+            s = 0
+            for c in Counter(g).values():
+                ans -= s * c 
+                s += c
+
+        return ans        
