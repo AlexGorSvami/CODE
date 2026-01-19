@@ -1,48 +1,89 @@
-program SimpleCalculator;
+program SmartCalculator;
+
+uses Math, sysutils;
+
+// Функция для безопасного ввода чисел
+function ReadDouble(prompt: string): real;
+var
+    s: string;
+    val: real;
+    code: integer;
+begin
+    while true do
+    begin
+        write(prompt);
+        readln(s);
+        val := StrToFloatDef(s, -999999.99); // Пытаемся конвертировать
+        if val <> -999999.99 then
+            exit(val)
+        else
+            writeln('Ошибка: Введите корректное число!');
+    end;
+end;
 
 var 
-	num1, num2, result: real;
-	operation: char;
+    num1, num2, result: real;
+    op: string;
+    isValid: boolean;
 
 begin 
-	writeln('--- SimpleCalculator ---');
+    writeln('==========================================');
+    writeln('       PASCAL SMART CALCULATOR 3.0       ');
+    writeln('==========================================');
 
-	// Enter first number
-	write('Enter first number: ');
-	readln(num1);
+    while true do 
+    begin 
+        write('> Операция (+, -, *, /, pow, sin, cos, exit): ');
+        readln(op);
+        op := lowercase(trim(op));
 
-	// Choice of operation 
-	write('Enter operation (+, -, *, /): ');
-	readln(operation);
+        if op = 'exit' then break;
 
-	//Enter second number 
-	write('Enter second number: ');
-	readln(num2);
+        isValid := true;
 
-	//Computational logic
-	case operation of 
-	 '+': result := num1 + num2;
-	 '-': result := num1 - num2;
-	 '*': result := num1 * num2;
-	 '/':
-		if num2 <> 0 then 
-		  result := num1 / num2 
-		else
-		begin 
-		  writeln('Error: you cant divide by zero');
-		  exit;
-		end;
-	else
-	 begin 
-	  writeln('Error: unknown operation');
-	  exit;
-	 end;
+        // Блок функций с одним числом
+        if (op = 'sin') or (op = 'cos') or (op = 'ln') or (op = '%') then
+        begin
+            num1 := ReadDouble('Введите число: ');
+            if op = 'sin' then result := sin(num1)
+            else if op = 'cos' then result := cos(num1)
+            else if op = 'ln' then 
+            begin
+                if num1 > 0 then result := ln(num1) 
+                else begin writeln('Ошибка: x > 0'); isValid := false; end;
+            end
+            else if op = '%' then result := num1 / 100;
+        end
+
+        // Блок функций с двумя числами
+        else if (op = '+') or (op = '-') or (op = '*') or (op = '/') or (op = 'pow') then
+        begin
+            num1 := ReadDouble('Первое число: ');
+            num2 := ReadDouble('Второе число: ');
+
+            if op = '+' then result := num1 + num2
+            else if op = '-' then result := num1 - num2
+            else if op = '*' then result := num1 * num2
+            else if op = '/' then 
+            begin
+                if num2 <> 0 then result := num1 / num2
+                else begin writeln('Ошибка: Деление на ноль!'); isValid := false; end;
+            end
+            else if op = 'pow' then result := power(num1, num2);
+        end
+        else 
+        begin
+            writeln('Ошибка: Неизвестная операция!');
+            isValid := false;
+        end;
+
+        if isValid then
+        begin
+            writeln('------------------------------------------');
+            writeln('РЕЗУЛЬТАТ: ', result:0:4);
+            writeln('------------------------------------------');
+        end;
     end;
 
-	// Print result 
-	writeln('Result: ', result:0:2); // 0:2 means 2 decimal places
-
-	readln; //To prevent the console window from closing immediately
-end. 
-   
-
+    writeln('До встречи!');
+end.
