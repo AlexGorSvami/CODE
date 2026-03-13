@@ -3,104 +3,135 @@ program DuplicateHunter;
 {$mode objfpc}{$H+}
 
 uses
-  SysUtils, 
-  Classes; 
+  SysUtils, Classes;
 
 type
-  TFileData = record 
-    Path: string; 
-    Size: Int64; 
-    IsDuplicate: Boolean; 
-  end; 
+  TFileData = record
+    Path: string;
+    Size: Int64;
+    IsDuplicate: Boolean;
+  end;
 
-var 
-  FileList: array of TFileData; 
-  FilesCount: Integer = 0; 
+var
+  FileList: array of TFileData;
+  FilesCount: Integer = 0;
 
-// 1. Рекурсивный поиск файлов
+// 1. Recursive folder scan
 procedure ScanDirectory(const TargetDir: string);
-var 
-  SearchRec: TSearchRec; // ИСПРАВЛЕНО: было ";" стало ":"
+var
+  SearchRec: TSearchRec;
 begin
-  // Начинаем поиск всех файлов в директории 
-  if FindFirst(TargetDir + '*', faAnyFile, SearchRec) = 0 then 
-  begin 
+  if FindFirst(TargetDir + '*', faAnyFile, SearchRec) = 0 then
+  begin
     try
-      repeat 
-        // Пропускаем системные указатели на текущую и родительскую папки 
-        if (SearchRec.Name <> '.') and (SearchRec.Name <> '..') then 
-        begin 
-          // Если это папка - идем внутрь 
-          if (SearchRec.Attr and faDirectory) <> 0 then 
+      repeat
+        // Skip current/parent dir pointers
+        if (SearchRec.Name <> '.') and (SearchRec.Name <> '..') then
+        begin
+          // If directory, scan it
+          if (SearchRec.Attr and faDirectory) <> 0 then
             ScanDirectory(TargetDir + SearchRec.Name + DirectorySeparator)
           else
-          begin 
-            // Если это файл - сохраняем данные в массив 
-            SetLength(FileList, FilesCount + 1); 
+          begin
+            // If file, save to array
+            SetLength(FileList, FilesCount + 1);
             FileList[FilesCount].Path := TargetDir + SearchRec.Name;
             FileList[FilesCount].Size := SearchRec.Size;
-            FileList[FilesCount].IsDuplicate := False; 
-            Inc(FilesCount); 
+            FileList[FilesCount].IsDuplicate := False;
+            Inc(FilesCount);
           end;
         end;
-      until FindNext(SearchRec) <> 0; 
+      until FindNext(SearchRec) <> 0;
     finally
-      FindClose(SearchRec); // Освобождаем ресурсы поиска
+      FindClose(SearchRec); // Free resources
     end;
   end;
 end;
 
-// 2. Побайтовое сравнение содержимого
+// 2. Byte-by-byte content comparison
 function CompareFileContent(const Path1, Path2: string): Boolean;
-var 
+var
   F1, F2: TFileStream;
-  Buf1, Buf2: array[1..8192] of Byte; 
+  Buf1, Buf2: array[1..8192] of Byte;
   BytesRead: Integer;
 begin
-  Result := False; 
+  Result := False;
   try
     F1 := TFileStream.Create(Path1, fmOpenRead or fmShareDenyNone);
     try
       F2 := TFileStream.Create(Path2, fmOpenRead or fmShareDenyNone);
-      try 
-        if F1.Size <> F2.Size then Exit; 
+      try
+        // Different size -> not duplicates
+        if F1.Size <> F2.Size then Exit;
 
-        while F1.Position < F1.Size do 
-        begin 
+        // Read and compare chunks
+        while F1.Position < F1.Size do
+        begin
           BytesRead := F1.Read(Buf1, SizeOf(Buf1));
           F2.Read(Buf2, SizeOf(Buf2));
           if not CompareMem(@Buf1, @Buf2, BytesRead) then Exit;
         end;
-        Result := True; 
+        Result := True;
       finally
-        F2.Free; 
+        F2.Free;
       end;
     finally
-      F1.Free; 
+      F1.Free;
     end;
   except
-    Result := False;
+    Result := False; // On read error
   end;
 end;
 
-var 
+var
   i, j: Integer;
   Temp: TFileData;
   Answer: string;
+  PathValid: Boolean;
 
-begin 
+begin
   WriteLn('___ Welcome to Pascal Duplicate Hunter ___');
-  WriteLn('Enter the path to folder:');
-  ReadLn(Answer);
 
-  if (Answer <> '') and (Answer[Length(Answer)] <> DirectorySeparator) then 
-    Answer := Answer + DirectorySeparator;
+  PathValid := False;
 
-  WriteLn('Step 1: Scanning...'); 
+  // 3. Get valid path
+  repeat
+    WriteLn('Enter folder path (or EXIT to quit):');
+    ReadLn(Answer);
+
+    if UpperCase(Answer) = 'EXIT' then
+    begin
+      WriteLn('Goodbye!');
+      Exit;
+    end;
+
+    // Ensure trailing separator
+    if (Length(Answer) > 0) and (Answer[Length(Answer)] <> DirectorySeparator) then
+      Answer := Answer + DirectorySeparator;
+
+    // Check if path exists
+    if DirectoryExists(Answer) then
+      PathValid := True
+    else
+    begin
+      WriteLn('ERROR: Directory not found. Try again.');
+      WriteLn('--------------------------------------------------');
+    end;
+  until PathValid = True;
+
+  // 4. Scan
+  WriteLn('Step 1: Scanning...');
   ScanDirectory(Answer);
+
+  if FilesCount = 0 then
+  begin
+    WriteLn('Directory is empty. No files to scan.');
+    Exit;
+  end;
+  
   WriteLn('Files found: ', FilesCount);
 
-  // Сортировка по размеру для ускорения
+  // 5. Sort by size (optimization)
   for i := 0 to FilesCount - 2 do
     for j := 0 to FilesCount - 2 - i do
       if FileList[j].Size > FileList[j+1].Size then
@@ -110,11 +141,11 @@ begin
         FileList[j+1] := Temp;
       end;
 
-  // Поиск дублей
+  // 6. Find duplicates
   for i := 0 to FilesCount - 2 do
   begin
-    if (FileList[i].IsDuplicate) then Continue;
-    
+    if FileList[i].IsDuplicate then Continue;
+
     j := i + 1;
     while (j < FilesCount) and (FileList[i].Size = FileList[j].Size) do
     begin
@@ -127,6 +158,7 @@ begin
     end;
   end;
 
+  // 7. Cleanup prompt
   WriteLn('Done. Delete duplicates? (Y/N)');
   ReadLn(Answer);
   if UpperCase(Answer) = 'Y' then
