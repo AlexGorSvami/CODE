@@ -14,3 +14,20 @@ def getHappyString(n: int, k: int) -> str:
 print(getHappyString(1, 3))
 print(getHappyString(1, 4))
 print(getHappyString(3, 9))
+
+def getHappyString1(self, n: int, k: int) -> str:
+    self.result = ''
+    self.count = 0
+    self.k = k
+
+    def back(word, ch, availible):
+        if ch == n:
+            self.count += 1 
+            if self.count == k:
+                self.result = word 
+            return 
+        for i in availible:
+            back(word + i, ch+1, 'abc'.replace(i, ''))
+
+    back('',0,'abc')
+    return self.result 
