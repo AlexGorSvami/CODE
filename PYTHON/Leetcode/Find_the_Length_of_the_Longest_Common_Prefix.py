@@ -1,5 +1,5 @@
 class Solution:
-    def longestCommonPrefix(self, arr1: List[int], arr2[List[int]]) -> int:
+    def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
         prefixes = set()
 
         for num in arr1:
