@@ -1,9 +1,7 @@
 def check(nums: list) -> bool:
-    has_break = False
     breaks = 0
     for i in range(len(nums) - 1):
         if nums[i] > nums[i + 1]:
-            has_break = True
             breaks += 1
             if breaks > 1:
                 return False
